@@ -9014,40 +9014,6 @@ if text == 'مسح قائمه منع الملصقات' and Manager(msg) then
 database:del(bot_id.."filtersteckr"..msg.chat_id_)
 send(msg.chat_id_, msg.id_,'🔖| تم مسح قائمه منع الملصقات')  
 end
-if text == 'تعطيل التفليش' and Constructor(msg) then     
-database:set(bot_id.."lock:Bot:kick"..msg.chat_id_,'kick')  
-database:set(bot_id.."lock:Link"..msg.chat_id_,'del')  
-database:hset(bot_id.."flooding:settings:"..msg.chat_id_ ,"flood",'del')  
-database:set(bot_id.."lock:forward"..msg.chat_id_,'del')  
-database:set(bot_id.."lock:Sticker"..msg.chat_id_,'del')  
-database:set(bot_id.."lock:Animation"..msg.chat_id_,'del')  
-database:set(bot_id.."lock:Video"..msg.chat_id_,'del')  
-database:set(bot_id.."lock:Photo"..msg.chat_id_,'del')  
-database:set(bot_id..'lock:Fshar'..msg.chat_id_,true) 
-database:set(bot_id..'lock:Fars'..msg.chat_id_,true) 
-database:set(bot_id..'lock:edit'..msg.chat_id_,true) 
-database:set(bot_id..'Bot:Id:Photo'..msg.chat_id_,true) 
-send(msg.chat_id_, msg.id_,'\n🔏╗☆ تم قفل البوتات بالطرد \n🔏╝☆ تم قفل التكرار \n🔏╗☆ تم قفل الروابط \n🔏╝☆ تم قفل التوجيه \n🔏╗☆ تم قفل الملصقات \n🔏╝☆ تم قفل المتحركه \n🔏╗☆ تم قفل الفيديو \n🔏╝☆ تم قفل الفشار \n🔏╗☆ تم قفل الفارسيه \n🔏╝☆ تم قفل تعديل الميديا \n🔏╗☆ تم قفل الصور \n🔏╝☆ تم تعطيل الايدي بالصوره \n➖➖➖➖➖➖➖➖ \n👤┇ بواسطه ➥ [BESSO](t.me/BESSO500K)\n🔐┇☆ تم تعطيل جميع اوامر التفليش') 
-end
-if text == 'تصفيه' and msg.reply_to_message_id_ == 0 and Manager(msg) then 
-database:del(bot_id.."Ban:User"..msg.chat_id_) 
-database:del(bot_id.."Mod:User"..msg.chat_id_)
-database:del(bot_id.."Special:User"..msg.chat_id_) 
-database:del(bot_id.."List:Filter"..msg.chat_id_) 
-database:del(bot_id.."Muted:User"..msg.chat_id_) 
-database:del(bot_id.."Manager"..msg.chat_id_) 
-send(msg.chat_id_, msg.id_,'\n🗑️¦ تم مسح المدراء\n🗑️¦ تم مسح المحظورين\n🗑️¦ تم مسح الادمنيه\n🗑️¦ تم مسح المميزين \n🗑️¦ تم مسح قائمه المنع \n🗑️¦ تم مسح المكتومين \n➖➖➖➖➖➖➖➖➖➖\n👤┇ بواسطه ⫷⫸ [[BESSO](t.me/BESSO500K)] \n✔️┇ تم تصفيه جميع الاوامر بنجاح') 
-end
-if text == 'شنو الوقت' or text == 'الوقت' or text == 'بيش الساعه' then 
-local htot = {'mathbf','mathit','mathfrak','mathrm'}
-local alwan = {'blue','green','yellow','magenta','Orange','DarkOrange','red'}
-local url1 = 'http://latex.codecogs.com/png.download?'..'\\dpi{600}%20\\huge%20\\'..htot[math.random(#htot)]..'{{\\color{'..alwan[math.random(#alwan)]..'}'..os.date("%H:%M")..'}}' 
-file = download_to_file(url1,'besso.webp')
-print('TIMESSSS')
- local BESSO = 'https://api.telegram.org/bot' .. token .. '/sendDocument'
-local curl = 'curl "' .. BESSO .. '" -F "chat_id=' .. msg.chat_id_ .. '" -F "document=@' .. 'besso.webp' .. '"'
-io.popen(curl)
-end
 
 if text == 'رابط الحذف' or text == 'رابط حذف' then
 t =[[
@@ -9058,22 +9024,6 @@ t =[[
 ]]
 send(msg.chat_id_, msg.id_,t) 
 return false
-end
-
-if text == 'السيرفر' and Sudo(msg) then 
-send(msg.chat_id_, msg.id_, io.popen([[
-linux_version=`lsb_release -ds`
-memUsedPrc=`free -m | awk 'NR==2{printf "%sMB/%sMB {%.2f%}\n", $3,$2,$3*100/$2 }'`
-HardDisk=`df -lh | awk '{if ($6 == "/") { print $3"/"$2" ~ {"$5"}" }}'`
-CPUPer=`top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`
-uptime=`uptime | awk -F'( |,|:)+' '{if ($7=="min") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {print d+0,"days,",h+0,"hours,",m+0,"minutes."}'`
-echo '📟┋•⊱ { نظام التشغيل } ⊰•\n*»» '"$linux_version"'*' 
-echo '*———————————~*\n📊|☆ { الذاكره العشوائيه } ☆\n*»» '"$memUsedPrc"'*'
-echo '*———————————~*\n📥|☆ { وحـده الـتـخـزيـن } ☆\n*»» '"$HardDisk"'*'
-echo '*———————————~*\n🔗|☆ { الـمــعــالــج } ☆\n*»» '"`grep -c processor /proc/cpuinfo`""Core ~ {$CPUPer%} "'*'
-echo '*———————————~*\n📭|☆ { الــدخــول } ☆\n*»» '`whoami`'*'
-echo '*———————————~*\n⏱|☆ { مـده تـشغيـل الـسـيـرفـر }☆\n*»» '"$uptime"'*'
-]]):read('*all'))  
 end
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
